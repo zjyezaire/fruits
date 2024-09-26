@@ -10,12 +10,20 @@
 
   <!-- views/fruits/index.ejs -->
 
-  <body>
+<!-- views/fruits/index.ejs -->
+
+<body>
     <h1>All Fruits</h1>
+    <a href="/fruits/new">Add New Fruit</a>
     <ul>
-      <% fruits.forEach(fruit=> { %>
-      <li><%= fruit.name %></li>
-      <% }); %>
+        <% fruits.forEach(fruit=> { %>
+            <li>
+                <a href="/fruits/<%= fruit._id %>">
+                    <%= fruit.name %>
+                </a>
+            </li>
+            <% }); %>
     </ul>
-  </body>
+</body>
+
 </html>
