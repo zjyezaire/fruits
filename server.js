@@ -4,9 +4,13 @@ dotenv.config();
 // require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override")
+const morgan = require("morgan");
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"))
+app.use(morgan("dev"));
 
 const Fruit = require("./models/fruit.js")
 mongoose.connect(process.env.MONGODB_URI)
@@ -41,12 +45,16 @@ app.get("/fruits", async  (req,res) => {
 })
 
 app.get("/fruits/:fruitId", async (req, res) => {
-    const foundFruit = await Fruit.findById(req.params.FruitId)
-  res.send(`This route renders the show page for fruit id: ${req.params.fruitId}!`
-  );
-  res.render("fruits/show.ejs", { fruit: foundFruit})
+    const foundFruit = await Fruit.findById(req.params.fruitId)
+    res.render("fruits/show.ejs", { fruit: foundFruit})
 
 });
+
+app.delete("/fruits/:fruitId", async (req, res) => {
+  await Fruit.findByIdAndDelete(req.params.fruitId);
+  res.redirect("/fruits");
+});
+
 
 
 app.listen(3000, () => {

@@ -2,15 +2,20 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= fruit.name %></title>
-    <!-- Dynamic title based on fruit name -->
-  </head>
+    <title>
+        <%= fruit.name %>
+    </title> <!-- Dynamic title based on fruit name -->
+</head>
 
+<<!-- views/fruits/show.ejs -->
 
     <body>
+        <a href="/fruits/">Back to Fruits</a>
+
         <h1>
             <%= fruit.name %>
         </h1>
@@ -20,6 +25,12 @@
             <% } else { %>
                 <p>This fruit is not ready to eat!</p>
                 <% } %>
+
+        <form action="/fruits/<%=fruit._id%>?_method=DELETE" method="POST">
+            <button type="submit">Delete <%= fruit.name %></button>
+        </form>
+        <a href="/fruits">Back to Fruits</a>
     </body>
+
 
 </html>
